@@ -71,13 +71,13 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="h-14 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl sticky top-0 z-30 px-3 sm:px-6 flex items-center justify-between gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
+    <header className="h-14 border-b border-slate-200/80 bg-white/95 backdrop-blur-xl sticky top-0 z-30 px-2.5 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
       {/* Left: Mobile Drawer Trigger / Desktop Sidebar Toggle + Logo */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0 min-w-0">
         {/* Mobile menu button */}
         <button
           onClick={() => setMobileDrawerOpen(true)}
-          className="lg:hidden p-2 rounded-xl text-slate-600 hover:bg-slate-100 min-h-[40px] min-w-[40px] flex items-center justify-center transition-colors"
+          className="lg:hidden p-1.5 rounded-xl text-slate-600 hover:bg-slate-100 min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors"
           aria-label="Open navigation menu"
         >
           <Menu className="h-5 w-5" />
@@ -97,23 +97,23 @@ export const Header: React.FC = () => {
         {/* Brand Logo (Always on mobile, or on desktop when on Home Hub) */}
         <Link
           to="/"
-          className={`flex items-center gap-2.5 ${location.pathname !== '/' ? 'lg:hidden' : 'flex'}`}
+          className={`flex items-center gap-2 ${location.pathname !== '/' ? 'lg:hidden' : 'flex'}`}
         >
-          <div className="h-8 w-8 rounded-xl bg-slate-900 flex items-center justify-center text-amber-500 shadow-xs flex-shrink-0">
-            <HardHat className="h-4.5 w-4.5 stroke-[2.2]" />
+          <div className="h-7 w-7 sm:h-8 sm:w-8 rounded-xl bg-slate-900 flex items-center justify-center text-amber-500 shadow-xs flex-shrink-0">
+            <HardHat className="h-4 w-4 sm:h-4.5 sm:w-4.5 stroke-[2.2]" />
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="font-black text-base tracking-tight text-slate-900">
+            <span className="font-black text-sm sm:text-base tracking-tight text-slate-900">
               Build<span className="text-amber-600">OS</span>
             </span>
-            <span className="px-1.5 py-0.2 rounded-full text-[9px] font-black uppercase tracking-wider bg-amber-500/15 text-amber-600 border border-amber-500/25">
+            <span className="hidden xs:inline-block px-1.5 py-0.2 rounded-full text-[9px] font-black uppercase tracking-wider bg-amber-500/15 text-amber-600 border border-amber-500/25">
               DEMO
             </span>
           </div>
         </Link>
 
         {/* Branch / Entity Selector (Desktop & Tablet) */}
-        <div className="hidden sm:flex items-center gap-1.5 ml-1 pl-3 border-l border-slate-200/80">
+        <div className="hidden md:flex items-center gap-1.5 ml-1 pl-3 border-l border-slate-200/80">
           <Building2 className="h-3.5 w-3.5 text-slate-400" />
           <select
             value={selectedBranchId}
@@ -148,8 +148,8 @@ export const Header: React.FC = () => {
         )}
       </div>
 
-      {/* Center / Search: Omnisearch Shortcut Input */}
-      <div className="flex-1 max-w-md mx-2">
+      {/* Center / Search: Omnisearch Shortcut Input (Desktop / Tablet only) */}
+      <div className="hidden sm:flex flex-1 max-w-md mx-2">
         <button
           onClick={() => setSearchOpen(true)}
           className="w-full text-left flex items-center justify-between px-3.5 py-1.5 text-xs bg-slate-100/70 hover:bg-slate-100 text-slate-500 rounded-xl border border-slate-200/70 hover:border-slate-300 transition-all min-h-[36px] shadow-2xs"
@@ -164,28 +164,37 @@ export const Header: React.FC = () => {
         </button>
       </div>
 
-      {/* Right: Demo Data Badge, Notifications, Quick Role Switcher & User Profile */}
-      <div className="flex items-center gap-2.5">
-        {/* Persistent Showcase DEMO DATA Badge */}
+      {/* Right: Actions, Mobile Search, Demo Badge, Notifications & Profile */}
+      <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
+        {/* Mobile Search Icon Button (Tap opens omnisearch modal) */}
+        <button
+          onClick={() => setSearchOpen(true)}
+          className="sm:hidden p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors"
+          aria-label="Search"
+          title="Search projects, BOQs, etc."
+        >
+          <Search className="h-4 w-4" />
+        </button>
+
+        {/* Persistent Showcase DEMO DATA Badge (Tablet / Desktop only) */}
         <div
           title="Interactive Showcase Demo Environment - All modules fully loaded with mock data"
-          className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-900 text-[10px] font-black uppercase tracking-wider select-none shrink-0 shadow-2xs"
+          className="hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 border border-amber-300 text-amber-900 text-[10px] font-black uppercase tracking-wider select-none shrink-0 shadow-2xs"
         >
           <span className="h-1.5 w-1.5 rounded-full bg-amber-500 animate-pulse" />
-          <span className="hidden xs:inline sm:inline">Demo Data</span>
-          <span className="xs:hidden sm:hidden inline">Demo</span>
+          <span>Demo Data</span>
         </div>
 
         {/* Notifications Trigger */}
         <div>
           <button
             onClick={() => setIsNotifOpen(true)}
-            className="p-2 rounded-lg text-slate-500 hover:text-slate-800 hover:bg-slate-100 relative min-h-[40px] min-w-[40px] flex items-center justify-center transition-colors"
+            className="p-1.5 sm:p-2 rounded-xl text-slate-500 hover:text-slate-800 hover:bg-slate-100 relative min-h-[36px] min-w-[36px] flex items-center justify-center transition-colors"
             aria-label="View notifications"
           >
             <Bell className="h-4 w-4" />
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 h-2 w-2 rounded-full bg-amber-500 ring-2 ring-white" />
+              <span className="absolute top-1 right-1 h-2 w-2 rounded-full bg-amber-500 ring-2 ring-white" />
             )}
           </button>
 
@@ -199,7 +208,7 @@ export const Header: React.FC = () => {
         <div className="relative" ref={profileRef}>
           <button
             onClick={() => setIsProfileOpen(!isProfileOpen)}
-            className="flex items-center gap-2 p-1 pl-1.5 pr-2 rounded-lg border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors min-h-[36px]"
+            className="flex items-center gap-1 sm:gap-2 p-1 sm:pl-1.5 sm:pr-2 rounded-xl border border-slate-200 hover:border-slate-300 hover:bg-slate-50 transition-colors min-h-[36px]"
           >
             <Avatar name={currentUser?.name || 'User'} size="xs" statusIndicator="online" />
             <div className="hidden md:block text-left">
@@ -210,7 +219,7 @@ export const Header: React.FC = () => {
                 {currentUser?.roleTitle || currentUser?.role}
               </p>
             </div>
-            <ChevronDown className="h-3.5 w-3.5 text-slate-400" />
+            <ChevronDown className="h-3.5 w-3.5 text-slate-400 hidden sm:block" />
           </button>
 
           {isProfileOpen && (
